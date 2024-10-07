@@ -22,5 +22,22 @@ public class GoFishPlayer extends Player{
   public int getScore(){
     return score;
   }
+
+  public void addCardToHand(GoFishCard card){
+    hand.add(card);
+  }
+
+  public void removeCardFromHand(GoFishCard card){
+    hand.remove(card);
+  }
   
+  public incrementScore(){
+    return score++;
+  }
+
+  @Override
+  public void play(){
+    System.out.println(getName() + "is playing their turn.");
+  }
+    
 }
