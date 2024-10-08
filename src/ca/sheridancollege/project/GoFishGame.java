@@ -73,7 +73,32 @@ private void initializeDeck() {
         }
     }
 
+  private int getRankIndex(String rank) {
+        String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
+        for (int i = 0; i < ranks.length; i++) {
+            if (ranks[i].equals(rank)) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
+    private void removeCardsFromHand(GoFishPlayer player, String rank) {
+        player.getHand().removeIf(card -> card.getRank().equals(rank));
+    }
+
+    @Override
+    public void declareWinner() {
+        GoFishPlayer winner = players.get(0);
+
+        for (GoFishPlayer player : players) {
+            if (player.getScore() > winner.getScore()) {
+                winner = player;
+            }
+        }
+
+        System.out.println("The winner is " + winner.getName() + " with " + winner.getScore() + " books!");
+    }
 
 
 
