@@ -100,6 +100,15 @@ private void initializeDeck() {
         System.out.println("The winner is " + winner.getName() + " with " + winner.getScore() + " books!");
     }
 
+   @Override
+    public void play() {
+        dealCards(7);
+
+        playTurn(players.get(0), players.get(1), "5");
+        playTurn(players.get(1), players.get(0), "Ace");
+
+        declareWinner();
+    }
 
 
 
