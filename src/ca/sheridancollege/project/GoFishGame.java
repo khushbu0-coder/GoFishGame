@@ -32,7 +32,49 @@ private void initializeDeck() {
         deck.shuffle();
     }
 
-  
+  public void dealCards(int numberOfCards) {
+        for (int i = 0; i < numberOfCards; i++) {
+            for (GoFishPlayer player : players) {
+                GoFishCard card = (GoFishCard) deck.getCards().remove(0);
+                player.addCardToHand(card);
+            }
+        }
+    }
+
+  public void playTurn(GoFishPlayer currentPlayer, GoFishPlayer otherPlayer, String requestedRank) {
+        if (!currentPlayer.askForCard(otherPlayer, requestedRank)) {
+            goFish(currentPlayer);
+        }
+        checkForBooks(currentPlayer);
+    }
+
+  public void goFish(GoFishPlayer player) {
+        if (!deck.getCards().isEmpty()) {
+            GoFishCard card = (GoFishCard) deck.getCards().remove(0);
+            player.addCardToHand(card);
+            System.out.println(player.getName() + " goes fishing and draws a card.");
+        }
+    }
+
+  public void checkForBooks(GoFishPlayer player) {
+        ArrayList<GoFishCard> hand = player.getHand();
+        int[] rankCount = new int[13];
+
+        for (GoFishCard card : hand) {
+            int rankIndex = getRankIndex(card.getRank());
+            if (rankIndex != -1) {
+                rankCount[rankIndex]++;
+                if (rankCount[rankIndex] == 4) {
+                    player.incrementScore();
+                    removeCardsFromHand(player, card.getRank());
+                    System.out.println(player.getName() + " made a book of " + card.getRank() + "s!");
+                }
+            }
+        }
+    }
+
+
+
 
 
 
